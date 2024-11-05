@@ -23,7 +23,9 @@
         "friendsofphp/php-cs-fixer": "^3.64",
         "phpstan/phpstan": "^1.12",
         "phpstan/phpstan-doctrine": "^1.5",
-        "phpunit/phpunit": "^11.4"
+        "phpstan/phpstan-symfony": "^1.4",
+        "phpunit/phpunit": "^11.4",
+        "symfony/web-profiler-bundle": "7.1.*"
     },
     "config": {
         "allow-plugins": {
