@@ -1,0 +1,48 @@
+nelmio_api_doc:
+  documentation:
+    info:
+      title: Eshop service
+      description: API сервиса Eshop
+    components:
+      schemas:
+        ClientErrorValidation:
+          type: object
+          properties:
+            errors:
+              type: array
+              minItems: 1
+              items:
+                type: string
+              example: '{"property_path": "error message", "other.property_path": "other error message"}'
+        ServerError:
+          type: object
+          properties:
+            errorMessage:
+              type: string
+              example: 'Internal server error'
+      responses:
+        422:
+          description: 'Unprocessable entity'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ClientErrorValidation'
+        500:
+          description: 'Internal Server Error'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ServerError'
+        health_ok:
+          description: 'Service health: ok'
+          content:
+            application/json:
+              schema:
+                properties:
+                  health:
+                    type: string
+                    example: OK
+  areas: # to filter documented areas
+    disable_default_routes: true
+    path_patterns:
+      - ^/eshop(?!/doc$) # Accepts routes under /api except /api/doc
