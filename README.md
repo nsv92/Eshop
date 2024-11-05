@@ -10,7 +10,9 @@ Eshop practice project
 * Kafka
 * Redis
 
-API documentation - http://localhost:86/eshop/api/doc
+## Ссылки
+* API documentation - http://localhost:86/eshop/api/doc
+* Web profiler - http://localhost:86/eshop/_profiler
 
 ## Установка
 ```
