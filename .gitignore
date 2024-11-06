@@ -7,6 +7,8 @@
 /public/bundles/
 /var/
 /vendor/
+/config/jwt/private.pem
+/config/jwt/public.pem
 ###< symfony/framework-bundle ###
 
 ###> phpunit/phpunit ###
