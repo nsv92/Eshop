@@ -6,16 +6,17 @@ RUN apk add --no-cache $PHPIZE_DEPS \
   git \
   unzip \
   busybox-extras \
-  rabbitmq-c-dev \
   linux-headers \
   gcc \
   make \
   autoconf \
+  postgresql-dev \
 && pecl install xdebug-3.3.2 \
 && docker-php-ext-enable xdebug \
 && docker-php-ext-install \
   pdo \
   pdo_mysql \
+  pdo_pgsql \
   mysqli \
   bcmath \
   sockets

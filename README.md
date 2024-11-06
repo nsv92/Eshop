@@ -21,8 +21,8 @@ docker compose up --build -d
 
 ## Команды
 * PHPStan - ```vendor/bin/phpstan analyse -l 6 src```
-* CS fixer check - ```php vendor/friendsofphp/php-cs-fixer/php-cs-fixer check```
-* CS fixer fix - ```php vendor/friendsofphp/php-cs-fixer/php-cs-fixer fix```
+* CS fixer check - ```php vendor/friendsofphp/php-cs-fixer/php-cs-fixer check --verbose```
+* CS fixer fix - ```php vendor/friendsofphp/php-cs-fixer/php-cs-fixer fix --verbose```
 
 ### Список переменных окружения:
 - ``APP_ENV`` - окружение приложения
