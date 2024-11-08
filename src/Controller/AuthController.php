@@ -39,7 +39,7 @@ class AuthController extends AbstractController
         ]
     )]
     #[OA\Tag(name: 'Auth')]
-    #[Route(path: '/api/v1/auth/signUp',  name: 'sign_up', methods: [Request::METHOD_POST])]
+    #[Route(path: '/api/v1/auth/signUp',  name: 'sign_up', methods: ['POST'])]
     public function signUp(Request $request): JsonResponse
     {
         $signUpRequestDto = $this->serializer->deserialize($request->getContent(), SignUpRequestDto::class, 'json');
