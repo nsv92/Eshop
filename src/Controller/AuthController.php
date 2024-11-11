@@ -8,25 +8,22 @@ use App\Dto\SignUpRequestDto;
 use App\Dto\SignUpSuccessResponseDto;
 use App\Service\SignUpService;
 use Nelmio\ApiDocBundle\Attribute\Model;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Routing\Attribute\Route;
 use OpenApi\Attributes as OA;
-use Symfony\Component\Serializer\SerializerInterface;
+use OpenApi\Attributes\RequestBody;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Attribute\Route;
 
 class AuthController extends AbstractController
 {
     public function __construct(
-        private readonly SignUpService       $signUpService,
-        private readonly SerializerInterface $serializer,
-    )
-    {
+        private readonly SignUpService $signUpService,
+    ) {
     }
 
     #[OA\Post(
         summary: 'New user sign up',
-        requestBody: new OA\RequestBody(content: new OA\JsonContent(ref: new Model(type: SignUpRequestDto::class))),
+        requestBody: new RequestBody(content: new OA\JsonContent(ref: new Model(type: SignUpRequestDto::class))),
         responses: [
             new OA\Response(
                 response: 200,
@@ -34,15 +31,14 @@ class AuthController extends AbstractController
                 content: new Model(type: SignUpSuccessResponseDto::class)
             ),
             new OA\Response(response: 409, description: 'User already exists'),
-            new OA\Response(ref: "#/components/responses/422", response: 422),
-            new OA\Response(ref: "#/components/responses/500", response: 500)
+            new OA\Response(ref: '#/components/responses/422', response: 422),
+            new OA\Response(ref: '#/components/responses/500', response: 500),
         ]
     )]
     #[OA\Tag(name: 'Auth')]
-    #[Route(path: '/api/v1/auth/signUp',  name: 'sign_up', methods: ['POST'])]
-    public function signUp(Request $request): JsonResponse
+    #[Route(path: '/api/v1/auth/signUp', name: 'sign_up', methods: ['POST'])]
+    public function signUp(#[RequestBody] SignUpRequestDto $request): Response
     {
-        $signUpRequestDto = $this->serializer->deserialize($request->getContent(), SignUpRequestDto::class, 'json');
-        return $this->json($this->signUpService->signUp($signUpRequestDto));
+        return $this->signUpService->signUp($request);
     }
 }

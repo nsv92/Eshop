@@ -4,27 +4,28 @@ declare(strict_types=1);
 
 namespace App\Service;
 
-use App\Dto\SignUpSuccessResponseDto;
 use App\Dto\SignUpRequestDto;
 use App\Entity\User;
 use App\Exception\UserAlreadyExistException;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Lexik\Bundle\JWTAuthenticationBundle\Security\Http\Authentication\AuthenticationSuccessHandler;
 use Psr\Log\LoggerInterface;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class SignUpService
 {
     public function __construct(
         private readonly UserPasswordHasherInterface $hasher,
-        private readonly UserRepository               $userRepository,
-        private readonly EntityManagerInterface       $em,
-        private readonly LoggerInterface              $logger
-    )
-    {
+        private readonly AuthenticationSuccessHandler $successHandler,
+        private readonly UserRepository $userRepository,
+        private readonly EntityManagerInterface $em,
+        private readonly LoggerInterface $logger,
+    ) {
     }
 
-    public function signUp(SignUpRequestDto $request): SignUpSuccessResponseDto
+    public function signUp(SignUpRequestDto $request): Response
     {
         if ($this->userRepository->existsByEmail($request->getEmail())) {
             $this->logger->notice(sprintf('User with email %s already exists', $request->getEmail()));
@@ -41,6 +42,6 @@ class SignUpService
         $this->em->persist($user);
         $this->em->flush();
 
-        return new SignUpSuccessResponseDto($user->getId());
+        return $this->successHandler->handleAuthenticationSuccess($user);
     }
 }
