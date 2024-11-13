@@ -33,7 +33,7 @@ class SignUpRequestDto
         return $this->email;
     }
 
-    public function setEmail(string $email): SignUpRequestDto
+    public function setEmail(string $email): self
     {
         $this->email = $email;
 
@@ -45,7 +45,7 @@ class SignUpRequestDto
         return $this->password;
     }
 
-    public function setPassword(string $password): SignUpRequestDto
+    public function setPassword(string $password): self
     {
         $this->password = $password;
 
@@ -57,7 +57,7 @@ class SignUpRequestDto
         return $this->confirmPassword;
     }
 
-    public function setConfirmPassword(string $confirmPassword): SignUpRequestDto
+    public function setConfirmPassword(string $confirmPassword): self
     {
         $this->confirmPassword = $confirmPassword;
 
@@ -69,7 +69,7 @@ class SignUpRequestDto
         return $this->name;
     }
 
-    public function setName(string $name): SignUpRequestDto
+    public function setName(string $name): self
     {
         $this->name = $name;
 
@@ -81,7 +81,7 @@ class SignUpRequestDto
         return $this->phone;
     }
 
-    public function setPhone(string $phone): SignUpRequestDto
+    public function setPhone(string $phone): self
     {
         $this->phone = $phone;
 

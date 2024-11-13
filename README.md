@@ -20,9 +20,16 @@ docker compose up --build -d
 * Web profiler - http://localhost:86/eshop/_profiler
 
 ## Команды
+
+### App
+
+### Service
+* Удалить просрочeнныe refresh токены - ```php bin/consoel gesdinet:jwt:clear```
+
+### Linters
 * PHPStan - ```vendor/bin/phpstan analyse -l 6 src```
 * CS fixer check - ```php vendor/friendsofphp/php-cs-fixer/php-cs-fixer check --verbose```
 * CS fixer fix - ```php vendor/friendsofphp/php-cs-fixer/php-cs-fixer fix --verbose```
 
-### Список переменных окружения:
+## Список переменных окружения:
 - ``APP_ENV`` - окружение приложения

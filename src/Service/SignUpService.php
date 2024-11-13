@@ -14,14 +14,14 @@ use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
-class SignUpService
+readonly class SignUpService
 {
     public function __construct(
-        private readonly UserPasswordHasherInterface $hasher,
-        private readonly AuthenticationSuccessHandler $successHandler,
-        private readonly UserRepository $userRepository,
-        private readonly EntityManagerInterface $em,
-        private readonly LoggerInterface $logger,
+        private UserPasswordHasherInterface $hasher,
+        private AuthenticationSuccessHandler $successHandler,
+        private UserRepository $userRepository,
+        private EntityManagerInterface $em,
+        private LoggerInterface $logger,
     ) {
     }
 
@@ -33,6 +33,7 @@ class SignUpService
         }
 
         $user = (new User())
+            ->setRoles(['ROLE_USER'])
             ->setEmail($request->getEmail())
             ->setName($request->getName())
             ->setPhone($request->getPhone());
