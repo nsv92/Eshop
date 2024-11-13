@@ -28,11 +28,12 @@ docker compose up --build -d
 
 ### Linters
 * PHPStan - ```vendor/bin/phpstan analyse -l 6 src```
-* CS fixer check - ```php vendor/friendsofphp/php-cs-fixer/php-cs-fixer check --verbose```
-* CS fixer fix - ```php vendor/friendsofphp/php-cs-fixer/php-cs-fixer fix --verbose```
+* CS-fixer check - ```php vendor/friendsofphp/php-cs-fixer/php-cs-fixer check --verbose```
+* CS-fixer fix - ```php vendor/friendsofphp/php-cs-fixer/php-cs-fixer fix --verbose```
 
 ## Тестирование
 Перед запуском тестов необходимо загрузить фикстуры
+Запуск тестов - ```php bin/phpunit```
 
 ## Список переменных окружения:
 - ``APP_ENV`` - окружение приложения
