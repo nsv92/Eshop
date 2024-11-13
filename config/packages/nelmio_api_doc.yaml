@@ -10,26 +10,54 @@ nelmio_api_doc:
                         - Auth
                     summary: Login
                     requestBody:
-                        description: Create new JWT Token
+                        description: User login by email and password
                         content:
                             application/json:
                                 schema:
                                     $ref: '#/components/schemas/Credentials'
                     responses:
                         '200':
+                            description: JWT and refresh token
+                            content:
+                                application/json:
+                                    schema:
+                                        $ref: '#/components/schemas/Tokens'
+                        '401':
+                            $ref: '#/components/responses/401'
+            /eshop/api/v1/auth/refresh:
+                post:
+                    tags:
+                        - Auth
+                    summary: Refresh token
+                    requestBody:
+                        description: Refresh token
+                        content:
+                            application/json:
+                                schema:
+                                    $ref: '#/components/schemas/RefreshToken'
+                    responses:
+                        '200':
                             description: JWT token
                             content:
                                 application/json:
                                     schema:
-                                        $ref: '#/components/schemas/Token'
+                                        $ref: '#/components/schemas/Tokens'
         components:
             schemas:
-                Token:
+                Tokens:
                     type: object
                     properties:
                         token:
                             type: string
                             readOnly: true
+                        refresh_token:
+                            type: string
+                            readOnly: true
+                RefreshToken:
+                    type: object
+                    properties:
+                        token:
+                            type: string
                 Credentials:
                     type: object
                     properties:
@@ -37,6 +65,15 @@ nelmio_api_doc:
                             type: string
                         password:
                             type: string
+                Unauthorized:
+                    type: object
+                    properties:
+                        code:
+                            type: integer
+                            example: 401
+                        message:
+                            type: string
+                            example: 'Invalid credentials.'
                 ClientErrorValidation:
                     type: object
                     properties:
@@ -58,6 +95,12 @@ nelmio_api_doc:
                     scheme: bearer
                     bearerFormat: JWT
             responses:
+                401:
+                    description: 'Unauthorized'
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/Unauthorized'
                 422:
                     description: 'Unprocessable entity'
                     content:

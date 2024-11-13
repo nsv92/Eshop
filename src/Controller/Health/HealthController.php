@@ -12,10 +12,10 @@ use Symfony\Component\Routing\Annotation\Route;
 class HealthController extends AbstractController
 {
     #[OA\Get(
-        summary: 'Проверка доступности сервиса',
+        summary: 'Service health check',
         responses: [new OA\Response(ref: '#/components/responses/health_ok', response: 200)]
     )]
-    #[OA\Tag(name: 'Service health check')]
+    #[OA\Tag(name: 'Health')]
     #[Route('/health', name: 'check_health', methods: 'GET')]
     public function checkHealth(): JsonResponse
     {
