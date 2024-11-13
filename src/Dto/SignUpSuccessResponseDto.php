@@ -4,12 +4,26 @@ declare(strict_types=1);
 
 namespace App\Dto;
 
-readonly class SignUpSuccessResponseDto
+use OpenApi\Attributes as OA;
+
+#[OA\Schema(
+    title: 'Sing up response',
+    description: 'JWT и рефреш токены нового пользователя',
+)]
+class SignUpSuccessResponseDto
 {
+    #[OA\Property(property: 'token', title: 'JWT', type: 'string')]
+    private string $token;
+
+    #[OA\Property(property: 'refresh_token', title: 'Рефреш токен', type: 'string')]
+    private string $refresh_token;
+
     public function __construct(
-        private string $token,
-        private string $refresh_token,
+        string $token,
+        string $refresh_token,
     ) {
+        $this->refresh_token = $refresh_token;
+        $this->token = $token;
     }
 
     public function getToken(): string

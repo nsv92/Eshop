@@ -4,28 +4,39 @@ declare(strict_types=1);
 
 namespace App\Dto;
 
+use OpenApi\Attributes as OA;
 use Symfony\Component\Validator\Constraints as Assert;
 
+#[OA\Schema(
+    title: 'Sing up request',
+    description: 'Регистрация нового пользователя',
+    required: ['email', 'password', 'confirmPassword', 'name', 'phone']
+)]
 class SignUpRequestDto
 {
     #[Assert\NotBlank]
     #[Assert\Email]
+    #[OA\Property(property: 'email', title: 'Адрес электронной почты', type: 'string')]
     private string $email;
 
     #[Assert\NotBlank]
     #[Assert\Length(min: 8)]
+    #[OA\Property(property: 'password', title: 'Пароль', type: 'string')]
     private string $password;
 
     #[Assert\NotBlank]
     #[Assert\EqualTo(propertyPath: 'password', message: 'Passwords do not match')]
+    #[OA\Property(property: 'confirm_password', title: 'Подтверждение пароля', type: 'string')]
     private string $confirmPassword;
 
     #[Assert\NotBlank]
     #[Assert\Length(max: 50)]
+    #[OA\Property(property: 'name', title: 'Имя пользователя', type: 'string')]
     private string $name;
 
     #[Assert\NotBlank]
     #[Assert\Length(max: 25)]
+    #[OA\Property(property: 'phone', title: 'Телефон', type: 'string')]
     private string $phone;
 
     public function getEmail(): string

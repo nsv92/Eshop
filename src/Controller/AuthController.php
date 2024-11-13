@@ -7,6 +7,7 @@ namespace App\Controller;
 use App\Dto\SignUpRequestDto;
 use App\Dto\SignUpSuccessResponseDto;
 use App\Service\SignUpService;
+use App\Validator\Validator;
 use Nelmio\ApiDocBundle\Attribute\Model;
 use OpenApi\Attributes as OA;
 use OpenApi\Attributes\RequestBody;
@@ -21,6 +22,7 @@ class AuthController extends AbstractController
     public function __construct(
         private readonly SignUpService $signUpService,
         private readonly SerializerInterface $serializer,
+        private readonly Validator $validator,
     ) {
     }
 
@@ -42,8 +44,9 @@ class AuthController extends AbstractController
     #[Route(path: '/api/v1/auth/signUp', name: 'sign_up', methods: ['POST'])]
     public function signUp(Request $request): Response
     {
-        return $this->signUpService->signUp(
-            $this->serializer->deserialize($request->getContent(), SignUpRequestDto::class, 'json')
-        );
+        $signUpDto = $this->serializer->deserialize($request->getContent(), SignUpRequestDto::class, 'json');
+        $this->validator->validate($signUpDto);
+
+        return $this->signUpService->signUp($signUpDto);
     }
 }

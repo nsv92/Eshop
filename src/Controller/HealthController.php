@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Controller\Health;
+namespace App\Controller;
 
 use OpenApi\Attributes as OA;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
