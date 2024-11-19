@@ -32,7 +32,8 @@ docker compose up --build -d
 * CS-fixer fix - ```php vendor/friendsofphp/php-cs-fixer/php-cs-fixer fix --verbose```
 
 ## Тестирование
-Перед запуском тестов необходимо загрузить фикстуры
+Перед запуском тестов необходимо произвести миграции и загрузить фикстуры (команды с ключом -e test)
+После каждого теста изменения в БД автоматически откатываются, см. https://github.com/dmaicher/doctrine-test-bundle
 
 Запуск тестов - ```php bin/phpunit```
 
